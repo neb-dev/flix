@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_ruby:
@@ -55,23 +55,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-      
-      - name: Set up database
-        run: |
-          bin/rails db:create
-          bin/rails db:migrate
-
-      - name: Run tests
-        run: bin/rails db:test:prepare test
 
     # services:
     #  redis:
@@ -91,6 +74,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
 
       - name: Run tests
         env:
