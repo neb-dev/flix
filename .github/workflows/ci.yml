@@ -64,6 +64,11 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+      
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
 
       - name: Run tests
         run: bin/rails db:test:prepare test
